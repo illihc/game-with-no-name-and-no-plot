@@ -87,6 +87,24 @@ public class DialogueGraphView : GraphView
             Button OutPutButton = new Button(clickEvent: () => { AddOutputPort(_Dialoguenode); });
             OutPutButton.text = "New Choice";
             _Dialoguenode.titleContainer.Add(OutPutButton);
+
+            //Creating the textfeld, in which the story can be told
+            TextField Textfield = new TextField(string.Empty);
+            Textfield.RegisterValueChangedCallback(text =>
+            {
+                _Dialoguenode.DialogueText = text.newValue;
+            });
+            Textfield.SetValueWithoutNotify(_Dialoguenode.title);
+            _Dialoguenode.mainContainer.Add(Textfield);
+
+            //Creating the Title of the node
+            TextField Titletext = new TextField(string.Empty);
+            Textfield.RegisterValueChangedCallback(_title =>
+            {
+                _Dialoguenode.title = _title.newValue;
+            });
+            Titletext.SetValueWithoutNotify(_Dialoguenode.title);
+            _Dialoguenode.titleContainer.Add(Titletext);
         }
         else if(IsEntryNode)
         {
@@ -131,7 +149,7 @@ public class DialogueGraphView : GraphView
         //Certate a button to delete the choice
         Button deletebutton = new Button(clickEvent: () => RemovePort(_Node, OutputPort))
         {
-            text = "A"
+            text = "Delete"
         };
 
         OutputPort.contentContainer.Add(deletebutton);
