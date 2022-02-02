@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FightTrigger : MonoBehaviour
 {
-    public FightDialogue Fightdialogue;
+    public FightDialogueNode Fightdialogue;
     [SerializeField] private DialogueManager Dialoguemanager;
 
     private void Awake()

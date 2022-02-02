@@ -1288,6 +1288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontal: 0
   vertical: 0
+  CanMove: 1
 --- !u!212 &989732908
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1757,13 +1758,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
+    NodeName: 
     NPCName: TestName
     PlayerName: TestPlayerName
-    Sentences:
-    - "Hello. I\xB4ll help you."
-    - "If you can\xB4t defeat the secound red one, walk south. There you\xB4ll find
-      your 3. Answer. Then cou can get him."
-    - Good luck, warrior!
+    NPCSentences:
+    - deasfsea
+    - faerfarsvf
+    - faserfras
+    PlayerSentences: []
   Dialoguemanager: {fileID: 1881993830}
 --- !u!1 &1188972058
 GameObject:
@@ -1912,12 +1914,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Fightdialogue:
-    NPCName: Difficult Enemy
-    PlayerName: Player
-    Sentences:
-    - "You can\xB4t defeat me!"
-    - "You\xB4ll lose!"
-    - Homophobic!
+    NodeName: 
+    NPCName: 
+    PlayerName: 
+    NPCSentences:
+    - "I\xB4m the best"
+    - "You\xB4ll lose"
+    - homophobic!
+    PlayerSentences: []
     MaxPlayerMoves: 3
     CurrentPlayerMoves: 0
     CurrentEnemyHealth: 7
@@ -2150,7 +2154,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2440,12 +2444,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Fightdialogue:
-    NPCName: Easy Enemy
-    PlayerName: Player
-    Sentences:
-    - "I\xB4m  a bit stupid, so you\xB4ll probably win"
-    - good move!
-    - "maybe I\xB4m not as bad as I thought..."
+    NodeName: 
+    NPCName: 
+    PlayerName: 
+    NPCSentences:
+    - "You\xB4ll win"
+    - "I\xB4m bad"
+    - See?
+    PlayerSentences: []
     MaxPlayerMoves: 3
     CurrentPlayerMoves: 0
     CurrentEnemyHealth: 0
@@ -2856,7 +2862,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80, y: -150.95496}
+  m_AnchoredPosition: {x: 80, y: -150.72357}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1640680790
@@ -3113,6 +3119,7 @@ MonoBehaviour:
   NPCSentenceTextFight: {fileID: 397753213}
   DialogBackground: {fileID: 2103222226}
   FightBackground: {fileID: 817156678}
+  Playerinput: {fileID: 989732907}
 --- !u!4 &1881993831
 Transform:
   m_ObjectHideFlags: 0
@@ -3164,7 +3171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80, y: -82.97748}
+  m_AnchoredPosition: {x: 80, y: -82.861786}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1888282619

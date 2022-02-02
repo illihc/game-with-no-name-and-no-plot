@@ -20,10 +20,14 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject DialogBackground;
 
     //All things for fighting
+    [Space]
     [SerializeField] private GameObject FightBackground;
-    private FightDialogue Fightdialogue;
+    private FightDialogueNode Fightdialogue;
     public event EndedFight OnFightEnded;
 
+    //All references to other scripts
+    [Space]
+    [SerializeField] private PlayerInput Playerinput;
 
     private void Awake()
     {
@@ -32,8 +36,11 @@ public class DialogueManager : MonoBehaviour
         FightBackground.SetActive(false);
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(DialogueNode dialogue)
     {
+        //Deactivate Player movement
+        Playerinput.CanMove = false;
+
         //Activating the dialogview
         DialogBackground.SetActive(true);
 
@@ -44,18 +51,21 @@ public class DialogueManager : MonoBehaviour
         NPCSentences.Clear();
 
         //Loading new sentences
-        for(int i = 0; i < dialogue.Sentences.Length; i++)
+        for(int i = 0; i < dialogue.NPCSentences.Length; i++)
         {
-            NPCSentences.Enqueue(dialogue.Sentences[i]);
+            NPCSentences.Enqueue(dialogue.NPCSentences[i]);
         }
 
         DisplayNextSentences();
     }
 
-    public void StartFightDialogue(FightDialogue _Fightdialogue)
+    public void StartFightDialogue(FightDialogueNode _Fightdialogue)
     {
         //Initialising the Fightdialogueobject
         Fightdialogue = _Fightdialogue;
+
+        //Deactivate Player movement
+        Playerinput.CanMove = false;
 
         //Activating the fightview
         FightBackground.SetActive(true);
@@ -66,9 +76,9 @@ public class DialogueManager : MonoBehaviour
         NPCSentences.Clear();
 
         //Loading new sentences
-        for (int i = 0; i < Fightdialogue.Sentences.Length; i++)
+        for (int i = 0; i < Fightdialogue.NPCSentences.Length; i++)
         {
-            NPCSentences.Enqueue(Fightdialogue.Sentences[i]);
+            NPCSentences.Enqueue(Fightdialogue.NPCSentences[i]);
         }
 
         //Starting a new fight
@@ -98,6 +108,9 @@ public class DialogueManager : MonoBehaviour
 
     public void EndFight()
     {
+        //Activate Player movement
+        Playerinput.CanMove = true;
+
         Debug.Log("Fight is over with " + Fightdialogue.CalculateWinner());
         OnFightEnded();
         FightBackground.SetActive(false);
@@ -118,6 +131,9 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialog()
     {
+        //Activate Player movement
+        Playerinput.CanMove = true;
+
         DialogBackground.SetActive(false);
         Debug.Log("Ended Dialog");
     }
