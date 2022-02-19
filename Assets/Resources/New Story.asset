@@ -9,12 +9,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 381ca2139031bce42b6c3772a2475a49, type: 3}
   m_Name: New Story
-  m_EditorClassIdentifier: Assembly-CSharp::DialogueContainer
+  m_EditorClassIdentifier: 
   NodesData:
-  - Guid: 034faec5-7033-46e2-8344-e7fd3859b30b
+  - Guid: 83f8f27f-ba30-4e8a-8283-a8e3984b61af
     DialogueText: 
     GraphPosition: {x: 100, y: 200}
     IsEntryPoint: 1
-  EdgesData: []
+  - Guid: 017fe184-ad27-48e4-b5d3-c7a4ae0405dc
+    DialogueText: Greetings!
+    GraphPosition: {x: 261.6, y: 179.2}
+    IsEntryPoint: 0
+  - Guid: 0b29276c-2625-4268-a565-12ac98ba2ff3
+    DialogueText: See you soon!
+    GraphPosition: {x: 696.8, y: 90.399994}
+    IsEntryPoint: 0
+  - Guid: f100d252-1a96-4b0b-bd3a-da831f99c0d0
+    DialogueText: Greetings to you!
+    GraphPosition: {x: 672, y: 332}
+    IsEntryPoint: 0
+  EdgesData:
+  - TargetNodeGuid: 017fe184-ad27-48e4-b5d3-c7a4ae0405dc
+    BaseNodeGuid: 83f8f27f-ba30-4e8a-8283-a8e3984b61af
+    PortName: Start
+  - TargetNodeGuid: 0b29276c-2625-4268-a565-12ac98ba2ff3
+    BaseNodeGuid: 017fe184-ad27-48e4-b5d3-c7a4ae0405dc
+    PortName: Bye
+  - TargetNodeGuid: f100d252-1a96-4b0b-bd3a-da831f99c0d0
+    BaseNodeGuid: 017fe184-ad27-48e4-b5d3-c7a4ae0405dc
+    PortName: Hi, too
