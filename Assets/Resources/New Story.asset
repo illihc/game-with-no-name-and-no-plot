@@ -13,29 +13,15 @@ MonoBehaviour:
   m_Name: New Story
   m_EditorClassIdentifier: 
   NodesData:
-  - Guid: 83f8f27f-ba30-4e8a-8283-a8e3984b61af
+  - Guid: 3efa84a9-73c4-4c61-b319-ea32cc88e1f3
     DialogueText: 
     GraphPosition: {x: 100, y: 200}
     IsEntryPoint: 1
-  - Guid: 017fe184-ad27-48e4-b5d3-c7a4ae0405dc
-    DialogueText: Greetings!
-    GraphPosition: {x: 261.6, y: 179.2}
-    IsEntryPoint: 0
-  - Guid: 0b29276c-2625-4268-a565-12ac98ba2ff3
-    DialogueText: See you soon!
-    GraphPosition: {x: 696.8, y: 90.399994}
-    IsEntryPoint: 0
-  - Guid: f100d252-1a96-4b0b-bd3a-da831f99c0d0
-    DialogueText: Greetings to you!
-    GraphPosition: {x: 672, y: 332}
+  - Guid: f451f3d7-557e-4aff-a64d-d8618621736e
+    DialogueText: Test
+    GraphPosition: {x: 271.2, y: 132}
     IsEntryPoint: 0
   EdgesData:
-  - TargetNodeGuid: 017fe184-ad27-48e4-b5d3-c7a4ae0405dc
-    BaseNodeGuid: 83f8f27f-ba30-4e8a-8283-a8e3984b61af
+  - TargetNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
+    BaseNodeGuid: 3efa84a9-73c4-4c61-b319-ea32cc88e1f3
     PortName: Start
-  - TargetNodeGuid: 0b29276c-2625-4268-a565-12ac98ba2ff3
-    BaseNodeGuid: 017fe184-ad27-48e4-b5d3-c7a4ae0405dc
-    PortName: Bye
-  - TargetNodeGuid: f100d252-1a96-4b0b-bd3a-da831f99c0d0
-    BaseNodeGuid: 017fe184-ad27-48e4-b5d3-c7a4ae0405dc
-    PortName: Hi, too

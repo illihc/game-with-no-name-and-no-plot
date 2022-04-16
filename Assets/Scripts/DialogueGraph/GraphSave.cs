@@ -28,6 +28,9 @@ public class GraphSave
         //If there is no Scriptableobject with the given Name, create a new one
         if (Resources.Load<DialogueContainer>(_FileName) == null)
             DialogueSaveContainer = new DialogueContainer();
+        else
+            DialogueSaveContainer = Resources.Load<DialogueContainer>(_FileName);
+
 
         SaveEdges();
         SaveNodes();
@@ -36,14 +39,16 @@ public class GraphSave
         if (!AssetDatabase.IsValidFolder("Assets/Resources"))
             AssetDatabase.CreateFolder("Assets", "Resources");
 
-        AssetDatabase.CreateAsset(DialogueSaveContainer, $"Assets/Resources/{_FileName}.asset");
+        if(Resources.Load<DialogueContainer>(_FileName) == null)
+            AssetDatabase.CreateAsset(DialogueSaveContainer, $"Assets/Resources/{_FileName}.asset");
+
         AssetDatabase.SaveAssets();
     }
 
     private void SaveNodes()
     {
-        //Getting all the nodes in the Graph, as Dialognodes
-        //Nodes =  GraphView.nodes.ToList().Cast<DialogueNodeTest>().ToList();
+        //Deleting all previous saved nodes, so there are no doublettes
+        DialogueSaveContainer.NodesData.Clear();
 
         //Saving the Guid, the text, and the position of all nodes, except the startnode in de DialoguesaveContainer in the NodesData-List
         foreach (var _DialogueNode in Nodes)
@@ -60,6 +65,9 @@ public class GraphSave
 
     private void SaveEdges()
     {
+        //Deleting all previous saved Edges, so there are no doublettes
+        DialogueSaveContainer.EdgesData.Clear();
+
         //Getting all edges, which are currently in the graph
         AllEdges = GraphView.edges.ToList();
 
@@ -95,7 +103,6 @@ public class GraphSave
 
     private void ClearGraph()
     {
-        //Nodes = GraphView.nodes.ToList().Cast<DialogueNodeTest>().ToList();
         AllEdges = GraphView.edges.ToList();
 
         //Remove all nodes from the Graph
@@ -142,16 +149,28 @@ public class GraphSave
         for (int i = 0; i < Nodes.Count; i++)
         {
             //Finding all edges, which basenodes are the same as nodes[i], which means they are connected to the output of nodes[i]
-            var Connections = DialogueSaveContainer.EdgesData.Where(n => n.BaseNodeGuid == Nodes[i].ObjectID).ToList();
+            //List<EdgesDataHolder> Connections = DialogueSaveContainer.EdgesData.Where(n => n.BaseNodeGuid == Nodes[i].ObjectID).ToList();
+            List<EdgesDataHolder> Connections = new List<EdgesDataHolder>();
+
+             foreach (EdgesDataHolder EdgeData in DialogueSaveContainer.EdgesData)
+             {
+                if (EdgeData.BaseNodeGuid == Nodes[i].ObjectID)
+                    Connections.Add(EdgeData);
+             }
 
             //Iterating over all found edges, who are connected to the output of nodes[i] to:
             for (int j = 0; j < Connections.Count(); j++)
             {
                 //Getting the Guid and the Node to which input port the edge is connected (the outputnode is Nodes[i]
-                string InputNodeGuid = Connections[j].TargetNodeGuid;
-                var InputNode = Nodes.First(n => n.ObjectID == InputNodeGuid);
+                string TargetNode = Connections[j].TargetNodeGuid;
+                DialogueNodeTest InputNode = Nodes.First(n => n.ObjectID == TargetNode);
 
-                ConnectNodes(Nodes[i].outputContainer[j].Q<Port>(), (Port)InputNode.inputContainer[0]);
+                Debug.Log("Connection: " + j);
+                Debug.Log("TargetNode is: " + InputNode.DialogueText);
+                Debug.Log(InputNode.inputContainer[0]); //Null argument exception for the inputcontainer
+                Debug.Log(Nodes[i].outputContainer[j]);
+
+                ConnectNodes((Port)InputNode.inputContainer[0], Nodes[i].outputContainer[j].Q<Port>());
             }
         }
     }

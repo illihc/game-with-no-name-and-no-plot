@@ -47,20 +47,7 @@ public class DialogueGraphView : GraphView
 
     private DialogueNodeTest GenerateEntryPoint()
     {
-        DialogueNodeTest node = new DialogueNodeTest { title = "Start", ObjectID = System.Guid.NewGuid().ToString(), IsEntryPoint = true};
-
-        //Adding a new created and named port to the node
-        Port generatedPort = GeneratePort(node, Direction.Output);
-        generatedPort.portName = "Start";
-        node.outputContainer.Add(generatedPort);
-
-        node.RefreshExpandedState();
-        node.RefreshPorts();
-
-        //Setting the position and Scale of the node
-        node.SetPosition(new Rect(x: 100, y: 200, width: 100, height: 150));
-
-        return node;
+        return CreateDialogueNode("start", true);
     }
 
     //Generating a port (a point, where one node can be connectet to another node) 
@@ -112,7 +99,7 @@ public class DialogueGraphView : GraphView
             Port generatedPort = GeneratePort(_Dialoguenode, Direction.Output);
             generatedPort.portName = "Start";
 
-            if(! _Dialoguenode.outputContainer.Contains(generatedPort))
+            if(!_Dialoguenode.outputContainer.Contains(generatedPort))
                 _Dialoguenode.outputContainer.Add(generatedPort);
         }
 
