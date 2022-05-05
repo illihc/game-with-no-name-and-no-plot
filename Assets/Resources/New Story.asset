@@ -17,11 +17,37 @@ MonoBehaviour:
     DialogueText: 
     GraphPosition: {x: 100, y: 200}
     IsEntryPoint: 1
+    PortNumber: 0
+  - Guid: f187623f-2272-423b-8622-553dc63d23f0
+    DialogueText: 1
+    GraphPosition: {x: 553.60004, y: 34.399998}
+    IsEntryPoint: 0
+    PortNumber: 1
+  - Guid: ff5fd4a5-409f-4375-a172-44e0e37f7c49
+    DialogueText: 2
+    GraphPosition: {x: 538.4, y: 229.6}
+    IsEntryPoint: 0
+    PortNumber: 2
   - Guid: f451f3d7-557e-4aff-a64d-d8618621736e
     DialogueText: Test
-    GraphPosition: {x: 271.2, y: 132}
+    GraphPosition: {x: 274.40002, y: 120}
     IsEntryPoint: 0
+    PortNumber: 1
+  - Guid: 2d357434-a884-4530-b41e-74886680aa6f
+    DialogueText: 3
+    GraphPosition: {x: 574.4, y: 132}
+    IsEntryPoint: 0
+    PortNumber: 3
   EdgesData:
   - TargetNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
     BaseNodeGuid: 3efa84a9-73c4-4c61-b319-ea32cc88e1f3
     PortName: Start
+  - TargetNodeGuid: f187623f-2272-423b-8622-553dc63d23f0
+    BaseNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
+    PortName: Option 1
+  - TargetNodeGuid: ff5fd4a5-409f-4375-a172-44e0e37f7c49
+    BaseNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
+    PortName: Option 2
+  - TargetNodeGuid: 2d357434-a884-4530-b41e-74886680aa6f
+    BaseNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
+    PortName: Option 3

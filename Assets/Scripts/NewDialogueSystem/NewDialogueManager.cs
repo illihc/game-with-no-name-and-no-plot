@@ -38,30 +38,34 @@ public class NewDialogueManager : MonoBehaviour
         }
     }
 
-    public void LoadNextDialogueStage()
+    public void LoadNextDialogueStage(int _OutputPortNumber = 0)
     {
-        //THIS ONLY WORKS IF THERE IS JUST AN EDGE FOR EACH NODE! FIRST MAKE A LIST OF POSSIBLE EDGES THEN TAKE THE RIGHT ONE AND THEN DO THESE THINGS
-        //I´m just to tired to do this
+        CurrentNode = FindNextNode(_OutputPortNumber);
 
-        //Find the next node
-        foreach(EdgesDataHolder edge in DialogueData.EdgesData)
+        //Display the next node
+        VisualManager.DisplayNode(CurrentNode);
+    }
+
+    private NodeDataHolder FindNextNode(int _OutputPortNumber)
+    {
+        foreach (EdgesDataHolder edge in DialogueData.EdgesData)
         {
-            //Find the edge, which was outputed by the CurrentNode
-            if(edge.BaseNodeGuid == CurrentNode.Guid)
+            //Find any edge, which was outputed by the CurrentNode
+            if (edge.BaseNodeGuid == CurrentNode.Guid)
             {
                 //Find the fitting node to the edge NodeGuid
-                foreach(NodeDataHolder node in DialogueData.NodesData)
+                foreach (NodeDataHolder node in DialogueData.NodesData)
                 {
-                    if(node.Guid == edge.BaseNodeGuid)
+                    if (node.Guid == edge.TargetNodeGuid && node.PortNumber == _OutputPortNumber)
                     {
-                        CurrentNode = node;
+                        return node;
                     }
                 }
             }
         }
 
-        //Display the next node
-        VisualManager.DisplayNode(CurrentNode);
+        Debug.LogError("Couldn´t find a next node.");
+        return null;
     }
 
     public void EndDialogue()

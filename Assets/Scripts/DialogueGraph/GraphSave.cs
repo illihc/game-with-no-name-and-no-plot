@@ -42,6 +42,8 @@ public class GraphSave
         if(Resources.Load<DialogueContainer>(_FileName) == null)
             AssetDatabase.CreateAsset(DialogueSaveContainer, $"Assets/Resources/{_FileName}.asset");
 
+        EditorUtility.SetDirty(Resources.Load<DialogueContainer>(_FileName));
+
         AssetDatabase.SaveAssets();
     }
 
@@ -59,6 +61,7 @@ public class GraphSave
                 DialogueText = _DialogueNode.DialogueText,
                 GraphPosition = _DialogueNode.GetPosition().position,
                 IsEntryPoint = _DialogueNode.IsEntryPoint,
+                PortNumber = _DialogueNode.InputPortNumber,
             });
         }
     }
@@ -88,7 +91,32 @@ public class GraphSave
                 PortName = AllEdges[i].output.portName,
                 TargetNodeGuid = InputNode.ObjectID,
             });
+
+            //Save here the InputPortNumber, so it can be saved in the SaveNodes-function, which is called afterwards
+            InputNode.InputPortNumber = FindInputPortNumber(AllEdges[i], OutputNode);
         }
+    }
+
+    private int FindInputPortNumber(Edge edge, DialogueNodeTest OutputNode)
+    {
+        Debug.Log("Childcount of outputcontainer is: " + OutputNode.outputContainer.childCount);
+        //Finding the number of the outputport int the outputcontainer of the OutputNode
+        for (int i = 0; i < OutputNode.outputContainer.childCount; i++)
+        {
+            Debug.Log(OutputNode.outputContainer[i]);
+
+            //The edge is not the same as the outputchannel sitting in OutputNode.outputContainer[i]
+            if (OutputNode.outputContainer[i] == edge.output)
+            {
+                Debug.Log("Node is: " + OutputNode.name + "Input port number is: " + i);
+                return i + 1;
+            }
+
+
+        }
+
+        Debug.LogError("Couldn´t find a fitting edge for outputnode: " + OutputNode.DialogueText);
+        return 10000;
     }
 
     public void LoadGraph(string _FileName)
@@ -165,8 +193,6 @@ public class GraphSave
                 string TargetNode = Connections[j].TargetNodeGuid;
                 DialogueNodeTest InputNode = Nodes.First(n => n.ObjectID == TargetNode);
 
-                Debug.Log("Connection: " + j);
-                Debug.Log("TargetNode is: " + InputNode.DialogueText);
                 Debug.Log(InputNode.inputContainer[0]); //Null argument exception for the inputcontainer
                 Debug.Log(Nodes[i].outputContainer[j]);
 

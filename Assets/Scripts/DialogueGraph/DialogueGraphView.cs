@@ -12,7 +12,7 @@ using UnityEngine.Scripting;
 public class DialogueGraphView : GraphView
 {
     public DialogueGraphView()
-    {
+    { 
         //Adding the ability to drag things around
         this.AddManipulator(new ContentDragger());
         this.AddManipulator(new SelectionDragger());
@@ -50,7 +50,7 @@ public class DialogueGraphView : GraphView
         return CreateDialogueNode("start", true);
     }
 
-    //Generating a port (a point, where one node can be connectet to another node) 
+    //Generating a port (a point, where one node can be connectet to another node)
     private Port GeneratePort(DialogueNodeTest node, Direction PortDirection, Port.Capacity capacity = Port.Capacity.Single)
     {
         return node.InstantiatePort(Orientation.Horizontal, PortDirection, Port.Capacity.Single, typeof(bool));
