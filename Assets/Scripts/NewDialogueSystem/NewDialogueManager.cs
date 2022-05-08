@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewDialogueManager : MonoBehaviour
+public class NewDialogueManager
 {
     [SerializeField] DialogueContainer[] AllDialogueContainers;
     private DialogueContainer DialogueData;
-    [SerializeField] private VisualDialogueManager VisualManager;
+    private VisualDialogueManager VisualManager;
     private NodeDataHolder CurrentNode;
 
-    public void StartDialogue(DialogueContainer _DialogueData) 
+    public void StartDialogue(DialogueContainer _DialogueData, VisualDialogueManager _VisualManager) 
     {
         DialogueData = _DialogueData;
+        VisualManager = _VisualManager;
 
         //Disable other game-functionality
 
         //Let the visual manager load in the graphics
+        VisualManager.LoadDialogueVisuals();
 
         //Load the fitting dialogue
         LoadFirstDialogueStage();
@@ -32,13 +34,13 @@ public class NewDialogueManager : MonoBehaviour
         {
             if(node.IsEntryPoint)
             {
-                VisualManager.DisplayNode(node);
                 CurrentNode = node;
+                VisualManager.DisplayNode(node);
             }
         }
     }
 
-    public void LoadNextDialogueStage(int _OutputPortNumber = 0)
+    public void LoadNextDialogueStage(int _OutputPortNumber = 1)
     {
         CurrentNode = FindNextNode(_OutputPortNumber);
 
@@ -53,9 +55,12 @@ public class NewDialogueManager : MonoBehaviour
             //Find any edge, which was outputed by the CurrentNode
             if (edge.BaseNodeGuid == CurrentNode.Guid)
             {
+                Debug.Log("Found a edge, which Basenode == Currentnode");
+
                 //Find the fitting node to the edge NodeGuid
                 foreach (NodeDataHolder node in DialogueData.NodesData)
                 {
+                    Debug.Log("Found nodes in the Scrpitableobject´s DialogueData");
                     if (node.Guid == edge.TargetNodeGuid && node.PortNumber == _OutputPortNumber)
                     {
                         return node;
