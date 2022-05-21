@@ -16,7 +16,7 @@ public class GraphSave
     private DialogueContainer DialogueSaveContainer;
     List<Edge> AllEdges;
 
-    List<DialogueNodeTest> Nodes => GraphView.nodes.ToList().Cast<DialogueNodeTest>().ToList();
+    List<DialogueNode> Nodes => GraphView.nodes.ToList().Cast<DialogueNode>().ToList();
 
     public static GraphSave GetInstance(DialogueGraphView _Graphview)
     {
@@ -81,8 +81,8 @@ public class GraphSave
         for (int i = 0; i < AllEdges.Count(); i++)
         {
             //Getting the output and input node of the edge
-            DialogueNodeTest OutputNode = AllEdges[i].output.node as DialogueNodeTest;
-            DialogueNodeTest InputNode = AllEdges[i].input.node as DialogueNodeTest;
+            DialogueNode OutputNode = AllEdges[i].output.node as DialogueNode;
+            DialogueNode InputNode = AllEdges[i].input.node as DialogueNode;
 
             //Filling the list of edges data of the dialogcontainer with the guid of in- and outputport and the name of the outputport
             DialogueSaveContainer.EdgesData.Add(new EdgesDataHolder
@@ -97,7 +97,7 @@ public class GraphSave
         }
     }
 
-    private int FindInputPortNumber(Edge edge, DialogueNodeTest OutputNode)
+    private int FindInputPortNumber(Edge edge, DialogueNode OutputNode)
     {
         Debug.Log("Childcount of outputcontainer is: " + OutputNode.outputContainer.childCount);
         //Finding the number of the outputport int the outputcontainer of the OutputNode
@@ -134,7 +134,7 @@ public class GraphSave
         AllEdges = GraphView.edges.ToList();
 
         //Remove all nodes from the Graph
-        foreach (DialogueNodeTest n in Nodes)
+        foreach (DialogueNode n in Nodes)
         {
             GraphView.RemoveElement(n);
         }
@@ -151,7 +151,7 @@ public class GraphSave
         foreach (NodeDataHolder nodedata in DialogueSaveContainer.NodesData)
         {
             //Creating a new node, setting all its parameters to the saved parameters of nodedata and adding it to the graph. Detect if it is the entrypoint an then just make an outputport
-            DialogueNodeTest _node;
+            DialogueNode _node;
 
             if (nodedata.IsEntryPoint)
                 _node = GraphView.CreateDialogueNode(nodedata.DialogueText, true);
@@ -191,7 +191,7 @@ public class GraphSave
             {
                 //Getting the Guid and the Node to which input port the edge is connected (the outputnode is Nodes[i]
                 string TargetNode = Connections[j].TargetNodeGuid;
-                DialogueNodeTest InputNode = Nodes.First(n => n.ObjectID == TargetNode);
+                DialogueNode InputNode = Nodes.First(n => n.ObjectID == TargetNode);
 
                 Debug.Log(InputNode.inputContainer[0]); //Null argument exception for the inputcontainer
                 Debug.Log(Nodes[i].outputContainer[j]);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewDialogueManager
+public class DialogueManager
 {
     [SerializeField] DialogueContainer[] AllDialogueContainers;
     private DialogueContainer DialogueData;
@@ -29,23 +29,35 @@ public class NewDialogueManager
 
     private void LoadFirstDialogueStage()
     {
+        CurrentNode = FindStartNode();
+        LoadNextDialogueStage();
+    }
+
+    private NodeDataHolder FindStartNode()
+    {
         //Find the first node, display and save it
-        foreach(NodeDataHolder node in DialogueData.NodesData)
+        foreach (NodeDataHolder node in DialogueData.NodesData)
         {
-            if(node.IsEntryPoint)
+            if (node.IsEntryPoint)
             {
-                CurrentNode = node;
-                VisualManager.DisplayNode(node);
+                return node;
             }
         }
+
+        Debug.LogError("No StartNode found in this DialogueContainer");
+        return null;
     }
 
     public void LoadNextDialogueStage(int _OutputPortNumber = 1)
     {
         CurrentNode = FindNextNode(_OutputPortNumber);
 
-        //Display the next node
-        VisualManager.DisplayNode(CurrentNode);
+        //Display the next node, if there is any
+        if (CurrentNode != null)
+            VisualManager.DisplayNode(CurrentNode);
+        //End the dialogue if there isn´t
+        else
+            EndDialogue();
     }
 
     private NodeDataHolder FindNextNode(int _OutputPortNumber)
@@ -69,16 +81,18 @@ public class NewDialogueManager
             }
         }
 
-        Debug.LogError("Couldn´t find a next node.");
+        EndDialogue();
         return null;
     }
 
     public void EndDialogue()
-    { 
+    {
         //check if there were choices made
-            //Save the choices
+        //Save the choices
 
         //Let the visual manager unload the graphics
+        VisualManager.UnloadDialogueVisuals();
+        Debug.Log("Ended dialogue");
 
         //enable other game-functionality
     }

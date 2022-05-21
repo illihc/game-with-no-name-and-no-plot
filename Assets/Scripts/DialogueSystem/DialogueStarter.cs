@@ -6,12 +6,12 @@ public class DialogueStarter : MonoBehaviour
 {
     public DialogueContainer Dialogue;
     public VisualDialogueManager VisualManager;
-    NewDialogueManager DialogueManager;
+    DialogueManager DialogueManager;
     private bool DialogueIsActive;
 
     private void Awake()
     {
-        DialogueManager = new NewDialogueManager();
+        DialogueManager = new DialogueManager();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -38,4 +38,6 @@ public class DialogueStarter : MonoBehaviour
             DialogueManager.LoadNextDialogueStage();
         }
     }
+
+    
 }

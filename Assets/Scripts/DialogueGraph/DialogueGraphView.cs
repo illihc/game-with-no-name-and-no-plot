@@ -45,20 +45,20 @@ public class DialogueGraphView : GraphView
         return CompatiblePorts;
     }
 
-    private DialogueNodeTest GenerateEntryPoint()
+    private DialogueNode GenerateEntryPoint()
     {
         return CreateDialogueNode("start", true);
     }
 
     //Generating a port (a point, where one node can be connectet to another node)
-    private Port GeneratePort(DialogueNodeTest node, Direction PortDirection, Port.Capacity capacity = Port.Capacity.Single)
+    private Port GeneratePort(DialogueNode node, Direction PortDirection, Port.Capacity capacity = Port.Capacity.Single)
     {
         return node.InstantiatePort(Orientation.Horizontal, PortDirection, Port.Capacity.Single, typeof(bool));
     }
 
-    public DialogueNodeTest CreateDialogueNode(string _NodeName, bool IsEntryNode = false)
+    public DialogueNode CreateDialogueNode(string _NodeName, bool IsEntryNode = false)
     {
-        DialogueNodeTest _Dialoguenode = new DialogueNodeTest
+        DialogueNode _Dialoguenode = new DialogueNode
         {
             title = _NodeName,
             DialogueText = _NodeName,
@@ -110,7 +110,7 @@ public class DialogueGraphView : GraphView
         return _Dialoguenode;
     }
 
-    public void AddOutputPort(DialogueNodeTest _Node, string _overwrittenPortName = "")
+    public void AddOutputPort(DialogueNode _Node, string _overwrittenPortName = "")
     {
         Port OutputPort = GeneratePort(_Node, Direction.Output);
 
@@ -147,7 +147,7 @@ public class DialogueGraphView : GraphView
         _Node.RefreshExpandedState();
     }
 
-    private void RemovePort(DialogueNodeTest _Node, Port _port)
+    private void RemovePort(DialogueNode _Node, Port _port)
     {
         //Getting possible edges of the port
         var NodeEdges = edges.ToList().Where(e => e.output.portName == _port.portName && e.output.node == _port.node);
