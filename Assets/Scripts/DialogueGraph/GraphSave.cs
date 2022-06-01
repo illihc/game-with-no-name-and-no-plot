@@ -62,6 +62,8 @@ public class GraphSave
                 GraphPosition = _DialogueNode.GetPosition().position,
                 IsEntryPoint = _DialogueNode.IsEntryPoint,
                 PortNumber = _DialogueNode.InputPortNumber,
+                IsFightDialogue = _DialogueNode.IsFightNode,
+                Sentencetypes = _DialogueNode.Sentencetypes,
             });
         }
     }
@@ -153,10 +155,12 @@ public class GraphSave
             //Creating a new node, setting all its parameters to the saved parameters of nodedata and adding it to the graph. Detect if it is the entrypoint an then just make an outputport
             DialogueNode _node;
 
+            //Create the node
             if (nodedata.IsEntryPoint)
-                _node = GraphView.CreateDialogueNode(nodedata.DialogueText, true);
+                _node = GraphView.CreateDialogueNode(nodedata.DialogueText, false, true);
             else
-                _node = GraphView.CreateDialogueNode(nodedata.DialogueText);
+                _node = GraphView.CreateDialogueNode(nodedata.DialogueText, nodedata.IsFightDialogue);
+
 
             _node.ObjectID = nodedata.Guid;
             _node.IsEntryPoint = nodedata.IsEntryPoint;
@@ -168,6 +172,12 @@ public class GraphSave
 
             //Setting the position of the node
             _node.SetPosition(new Rect(nodedata.GraphPosition, new Vector2(150, 200)));
+
+            //Setting if the node has been a FightNode
+            _node.IsFightNode = nodedata.IsFightDialogue;
+
+            //Setting the Sentencetype of the node
+            _node.Sentencetypes = nodedata.Sentencetypes;
         }
 
     }

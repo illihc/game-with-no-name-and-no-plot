@@ -14,40 +14,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NodesData:
   - Guid: 3efa84a9-73c4-4c61-b319-ea32cc88e1f3
-    DialogueText: 
     GraphPosition: {x: 100, y: 200}
     IsEntryPoint: 1
+    PlayerAnswers: []
+    IsFightDialogue: 0
+    Sentencetypes: 00000000
+    DialogueText: 
     PortNumber: 0
-  - Guid: f187623f-2272-423b-8622-553dc63d23f0
-    DialogueText: 1
-    GraphPosition: {x: 553.60004, y: 34.399998}
+  - Guid: f451f3d7-557e-4aff-a64d-d8618621736e
+    GraphPosition: {x: 274.4, y: 120}
     IsEntryPoint: 0
+    PlayerAnswers: []
+    IsFightDialogue: 0
+    Sentencetypes: 000000000000000001000000
+    DialogueText: Hallo
     PortNumber: 1
   - Guid: ff5fd4a5-409f-4375-a172-44e0e37f7c49
-    DialogueText: 2
-    GraphPosition: {x: 538.4, y: 229.6}
+    GraphPosition: {x: 821.6, y: 120}
     IsEntryPoint: 0
+    PlayerAnswers: []
+    IsFightDialogue: 0
+    Sentencetypes: 
+    DialogueText: Gut, dir?
     PortNumber: 2
-  - Guid: f451f3d7-557e-4aff-a64d-d8618621736e
-    DialogueText: Test
-    GraphPosition: {x: 274.40002, y: 120}
-    IsEntryPoint: 0
-    PortNumber: 1
   - Guid: 2d357434-a884-4530-b41e-74886680aa6f
-    DialogueText: 3
-    GraphPosition: {x: 574.4, y: 132}
+    GraphPosition: {x: 733.6, y: 243.99998}
     IsEntryPoint: 0
+    PlayerAnswers: []
+    IsFightDialogue: 0
+    Sentencetypes: 
+    DialogueText: "Na dann: Tsch\xFCss!"
     PortNumber: 3
+  - Guid: f187623f-2272-423b-8622-553dc63d23f0
+    GraphPosition: {x: 821.6, y: -96.8}
+    IsEntryPoint: 0
+    PlayerAnswers: []
+    IsFightDialogue: 1
+    Sentencetypes: 
+    DialogueText: "Dann lass uns k\xE4mpfen!"
+    PortNumber: 1
   EdgesData:
   - TargetNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
     BaseNodeGuid: 3efa84a9-73c4-4c61-b319-ea32cc88e1f3
     PortName: Start
   - TargetNodeGuid: f187623f-2272-423b-8622-553dc63d23f0
     BaseNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
-    PortName: Option 1
+    PortName: Ich fordere dich zum Kampf heraus!
   - TargetNodeGuid: ff5fd4a5-409f-4375-a172-44e0e37f7c49
     BaseNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
-    PortName: Option 2
+    PortName: "Wie geht\xB4s?"
   - TargetNodeGuid: 2d357434-a884-4530-b41e-74886680aa6f
     BaseNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
-    PortName: Option 3
+    PortName: Oh, sorry, ich habe dich verwechselt

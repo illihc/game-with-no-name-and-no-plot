@@ -29,7 +29,7 @@ public class DialogueGraphView : GraphView
 
     public void CreateNode(string _nodename)
     {
-        AddElement(CreateDialogueNode(_nodename));
+        AddElement(CreateDialogueNode(_nodename, false));
     }
 
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
@@ -47,7 +47,7 @@ public class DialogueGraphView : GraphView
 
     private DialogueNode GenerateEntryPoint()
     {
-        return CreateDialogueNode("start", true);
+        return CreateDialogueNode("start", false, true);
     }
 
     //Generating a port (a point, where one node can be connectet to another node)
@@ -56,21 +56,24 @@ public class DialogueGraphView : GraphView
         return node.InstantiatePort(Orientation.Horizontal, PortDirection, Port.Capacity.Single, typeof(bool));
     }
 
-    public DialogueNode CreateDialogueNode(string _NodeName, bool IsEntryNode = false)
+    public DialogueNode CreateDialogueNode(string _NodeName, bool _IsFightNode, bool IsEntryNode = false)
     {
         DialogueNode _Dialoguenode = new DialogueNode
         {
             title = _NodeName,
             DialogueText = _NodeName,
             ObjectID = System.Guid.NewGuid().ToString(),
+            IsFightNode = _IsFightNode,
         };
 
         if(! IsEntryNode)
         {
+            //Creating the input port
             Port InputPort = GeneratePort(_Dialoguenode, Direction.Input, Port.Capacity.Multi);
             InputPort.portName = "Input";
             _Dialoguenode.inputContainer.Add(InputPort);
 
+            //Create a button to create new OutputPorts
             Button OutPutButton = new Button(clickEvent: () => { AddOutputPort(_Dialoguenode); });
             OutPutButton.text = "New Choice";
             _Dialoguenode.titleContainer.Add(OutPutButton);
@@ -92,6 +95,15 @@ public class DialogueGraphView : GraphView
             });
             Titletext.SetValueWithoutNotify(_Dialoguenode.title);
             _Dialoguenode.titleContainer.Add(Titletext);
+
+            //Create a button to mark the node as Fight-Node
+            Toggle IsFightNodeToggle = new Toggle("IsFightNode");
+            IsFightNodeToggle.SetValueWithoutNotify(_Dialoguenode.IsFightNode);
+            IsFightNodeToggle.RegisterValueChangedCallback(_IsFight =>
+            {
+                _Dialoguenode.IsFightNode = _IsFight.newValue;
+            });
+            _Dialoguenode.titleContainer.Add(IsFightNodeToggle);
         }
         else if(IsEntryNode)
         {
@@ -119,12 +131,12 @@ public class DialogueGraphView : GraphView
 
         int OutputPortNumber = _Node.outputContainer.Query(name: "connector").ToList().Count;
 
-        var outputPortName = string.IsNullOrEmpty(_overwrittenPortName)
+        string outputPortName = string.IsNullOrEmpty(_overwrittenPortName)
             ? $"Option {OutputPortNumber + 1}"
             : _overwrittenPortName;
 
         //Create a textfield to name the Choice Option
-        var textField = new TextField()
+        TextField textField = new TextField()
         {
             name = string.Empty,
             value = outputPortName
@@ -132,6 +144,8 @@ public class DialogueGraphView : GraphView
         textField.RegisterValueChangedCallback(evt => OutputPort.portName = evt.newValue);
         OutputPort.contentContainer.Add(new Label("  "));
         OutputPort.contentContainer.Add(textField);
+
+
 
         //Certate a button to delete the choice
         Button deletebutton = new Button(clickEvent: () => RemovePort(_Node, OutputPort))

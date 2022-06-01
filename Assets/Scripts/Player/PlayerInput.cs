@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void Mouseinput(); 
 public class PlayerInput : MonoBehaviour
 {
-    public event Mouseinput Leftclick;
 
     public float horizontal, vertical;
     public bool CanMove = true;

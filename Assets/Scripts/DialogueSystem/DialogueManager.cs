@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueManager
+public class DialogueManager : MonoBehaviour
 {
-    [SerializeField] DialogueContainer[] AllDialogueContainers;
     private DialogueContainer DialogueData;
     private VisualDialogueManager VisualManager;
     private NodeDataHolder CurrentNode;
+    List<string> PlayerAnswers = new List<string>();
+    DialogueStarter CurrentDialogueStarter;
 
-    public void StartDialogue(DialogueContainer _DialogueData, VisualDialogueManager _VisualManager) 
+    public void StartDialogue(DialogueContainer _DialogueData, VisualDialogueManager _VisualManager, DialogueStarter _CurrentDialogueStarter) 
     {
         DialogueData = _DialogueData;
         VisualManager = _VisualManager;
+        CurrentDialogueStarter = _CurrentDialogueStarter;
 
         //Disable other game-functionality
 
@@ -50,14 +52,19 @@ public class DialogueManager
 
     public void LoadNextDialogueStage(int _OutputPortNumber = 1)
     {
-        CurrentNode = FindNextNode(_OutputPortNumber);
+        //Unload all old Answers, the player could have given
+        VisualManager.UnloadPlayerAnswers();
 
-        //Display the next node, if there is any
-        if (CurrentNode != null)
-            VisualManager.DisplayNode(CurrentNode);
-        //End the dialogue if there isn´t
+
+        CurrentNode = FindNextNode(_OutputPortNumber);
+        
+        VisualManager.DisplayNode(CurrentNode);
+
+        //If the player has answers, load them, if not end the dialogue
+        if (!NodeIsLastNode())
+            LoadPlayerAnswers();
         else
-            EndDialogue();
+            PrepareDialogueEnd();
     }
 
     private NodeDataHolder FindNextNode(int _OutputPortNumber)
@@ -67,12 +74,12 @@ public class DialogueManager
             //Find any edge, which was outputed by the CurrentNode
             if (edge.BaseNodeGuid == CurrentNode.Guid)
             {
-                Debug.Log("Found a edge, which Basenode == Currentnode");
+                //Debug.Log("Found a edge, which Basenode == Currentnode");
 
                 //Find the fitting node to the edge NodeGuid
                 foreach (NodeDataHolder node in DialogueData.NodesData)
                 {
-                    Debug.Log("Found nodes in the Scrpitableobject´s DialogueData");
+                    //Debug.Log("Found nodes in the Scrpitableobject´s DialogueData");
                     if (node.Guid == edge.TargetNodeGuid && node.PortNumber == _OutputPortNumber)
                     {
                         return node;
@@ -81,8 +88,21 @@ public class DialogueManager
             }
         }
 
-        EndDialogue();
         return null;
+    }
+
+    //To Check, if the Player has Answers, or the dialogue ends with the current node
+    private bool NodeIsLastNode()
+    {
+        if (FindNextNode(1) == null)
+            return true;
+        else
+            return false;
+    }
+
+    public void PrepareDialogueEnd()
+    {
+        VisualManager.LoadDialogueEnding();
     }
 
     public void EndDialogue()
@@ -95,7 +115,23 @@ public class DialogueManager
         Debug.Log("Ended dialogue");
 
         //enable other game-functionality
+        CurrentDialogueStarter.DialogueIsActive = false;
     }
 
+    private void LoadPlayerAnswers()
+    {
+        PlayerAnswers.Clear();
+
+        //Finding all possible answer-edges to the currentnode
+        for(int i = 0; i < DialogueData.EdgesData.Count; i++)
+        {
+            if(DialogueData.EdgesData[i].BaseNodeGuid == CurrentNode.Guid)
+            {
+                PlayerAnswers.Add(DialogueData.EdgesData[i].PortName);
+            }
+        }
+
+        VisualManager.DisplayPlayerAnswers(PlayerAnswers);
+    }
 
 }
