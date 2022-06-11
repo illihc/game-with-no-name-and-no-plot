@@ -12,12 +12,15 @@ public class VisualDialogueManager : MonoBehaviour
         [SerializeField] private GameObject PlayerTextPrefab;
     [SerializeField] private GameObject PlayerGoodbyePrefab;
 
-        public void LoadDialogueVisuals()
+    //Fighting 
+    public GameObject FightCanvas;
+    public GameObject NPCFightNode;
+    public void LoadDialogueVisuals()
         {
             DialogueCanvas.SetActive(true);
         }
 
-        public void DisplayNode(NodeDataHolder node)
+    public void DisplayNode(NodeDataHolder node)
         {
             CurrentDisplayedNode.SetActive(true);
 
@@ -55,5 +58,18 @@ public class VisualDialogueManager : MonoBehaviour
             //Sett the Buttonscript to the correct number
             PlayerAnswerG.GetComponent<PlayerAnswer>().AnswerNumber = i + 1;
         }
+    }
+
+    public void LoadFightVisuals()
+    {
+        //Deactivate the DialogueCanvas
+        DialogueCanvas.SetActive(false);
+        FightCanvas.SetActive(true);
+    }
+
+    public void DisplayNextFightRound(string _NPCFightSentence)
+    {
+        //Set the text to, whatever the NPC has to say
+        NPCFightNode.GetComponentInChildren<TMP_Text>().text = _NPCFightSentence;
     }
 }

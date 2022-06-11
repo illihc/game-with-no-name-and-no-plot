@@ -10,6 +10,10 @@ public class DialogueManager : MonoBehaviour
     List<string> PlayerAnswers = new List<string>();
     DialogueStarter CurrentDialogueStarter;
 
+     //For Fighting
+    [SerializeField] private FightManager Fightmanager;
+    private Queue<NodeDataHolder> AllFightNodes = new Queue<NodeDataHolder>();
+
     public void StartDialogue(DialogueContainer _DialogueData, VisualDialogueManager _VisualManager, DialogueStarter _CurrentDialogueStarter) 
     {
         DialogueData = _DialogueData;
@@ -57,6 +61,15 @@ public class DialogueManager : MonoBehaviour
 
 
         CurrentNode = FindNextNode(_OutputPortNumber);
+
+        if(CurrentNode.IsFightDialogue)
+        {
+            FindAllFightNodes();
+            Fightmanager.StartFightDialogue(AllFightNodes);
+            return;
+
+            //With this action, the dialoguemanager is done and unable to do anything until the next dialogue has been triggered
+        }
         
         VisualManager.DisplayNode(CurrentNode);
 
@@ -134,4 +147,26 @@ public class DialogueManager : MonoBehaviour
         VisualManager.DisplayPlayerAnswers(PlayerAnswers);
     }
 
+    private void FindAllFightNodes()
+    {
+        //Clear all previous fight nodes
+        AllFightNodes.Clear();
+
+        //Add the current Node (which is a Fight Node, because this code has been triggered
+        AllFightNodes.Enqueue(CurrentNode);
+
+        //Iterate through all next nodes to
+        while(true)
+        {
+            //Find all next nodes
+            CurrentNode = FindNextNode(1);
+
+            //And if there is any, add them to the list
+            if (CurrentNode == null)
+                return;
+            else
+                AllFightNodes.Enqueue(CurrentNode);
+        }
+
+    }
 }

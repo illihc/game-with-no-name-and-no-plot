@@ -26,7 +26,7 @@ MonoBehaviour:
     IsEntryPoint: 0
     PlayerAnswers: []
     IsFightDialogue: 0
-    Sentencetypes: 
+    Sentencetypes: 00000000
     DialogueText: Doch
     PortNumber: 1
   - Guid: b9976289-3528-4226-8421-93810830338c
