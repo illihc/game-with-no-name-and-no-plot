@@ -65,6 +65,7 @@ public class DialogueManager : MonoBehaviour
         if(CurrentNode.IsFightDialogue)
         {
             FindAllFightNodes();
+            Debug.Log("FindNodesCount is: " + AllFightNodes.Count);
             Fightmanager.StartFightDialogue(AllFightNodes);
             return;
 
@@ -167,6 +168,5 @@ public class DialogueManager : MonoBehaviour
             else
                 AllFightNodes.Enqueue(CurrentNode);
         }
-
     }
 }

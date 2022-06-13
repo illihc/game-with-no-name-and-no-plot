@@ -53,6 +53,22 @@ MonoBehaviour:
     Sentencetypes: 
     DialogueText: "Dann lass uns k\xE4mpfen!"
     PortNumber: 1
+  - Guid: ddfa7b22-b181-400c-8ae1-108fd7a3f5f6
+    GraphPosition: {x: 1428, y: -96.8}
+    IsEntryPoint: 0
+    PlayerAnswers: []
+    IsFightDialogue: 1
+    Sentencetypes: 
+    DialogueText: Ha, ich bin besser
+    PortNumber: 1
+  - Guid: a0a6d396-4ce2-4bfb-90b5-bcc1035d4a84
+    GraphPosition: {x: 2005.6, y: -88}
+    IsEntryPoint: 0
+    PlayerAnswers: []
+    IsFightDialogue: 1
+    Sentencetypes: 
+    DialogueText: Ok, du hast gewonnen
+    PortNumber: 1
   EdgesData:
   - TargetNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
     BaseNodeGuid: 3efa84a9-73c4-4c61-b319-ea32cc88e1f3
@@ -66,3 +82,9 @@ MonoBehaviour:
   - TargetNodeGuid: 2d357434-a884-4530-b41e-74886680aa6f
     BaseNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
     PortName: Oh, sorry, ich habe dich verwechselt
+  - TargetNodeGuid: ddfa7b22-b181-400c-8ae1-108fd7a3f5f6
+    BaseNodeGuid: f187623f-2272-423b-8622-553dc63d23f0
+    PortName: DamagePlayer
+  - TargetNodeGuid: a0a6d396-4ce2-4bfb-90b5-bcc1035d4a84
+    BaseNodeGuid: ddfa7b22-b181-400c-8ae1-108fd7a3f5f6
+    PortName: Damage Player

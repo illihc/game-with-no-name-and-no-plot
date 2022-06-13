@@ -15,6 +15,7 @@ public class VisualDialogueManager : MonoBehaviour
     //Fighting 
     public GameObject FightCanvas;
     public GameObject NPCFightNode;
+    public Slider NPCHealthSlider;
     public void LoadDialogueVisuals()
         {
             DialogueCanvas.SetActive(true);
@@ -71,5 +72,20 @@ public class VisualDialogueManager : MonoBehaviour
     {
         //Set the text to, whatever the NPC has to say
         NPCFightNode.GetComponentInChildren<TMP_Text>().text = _NPCFightSentence;
+    }
+
+    public void MaximizeNPCHealth(float _MaxHealth)
+    {
+        NPCHealthSlider.maxValue = _MaxHealth;
+        NPCHealthSlider.value = _MaxHealth;
+    }
+    public void SetNPCHealthGFX(float _CurrentHealth)
+    {
+        NPCHealthSlider.value = _CurrentHealth;
+    }
+
+    public void UnlaodFightVisuals()
+    {
+        FightCanvas.SetActive(false);
     }
 }
