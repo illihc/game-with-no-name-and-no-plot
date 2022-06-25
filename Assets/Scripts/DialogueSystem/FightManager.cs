@@ -7,18 +7,18 @@ public class FightManager : MonoBehaviour
 {
     public VisualDialogueManager VisualManager;
     Queue<NodeDataHolder> AllFightNodes;
-    public float NPCHealth;
     public PlayerHealth Playerhealth;
     public GameObject FightResultCanvas;
     private NodeDataHolder CurrentFightNode;
     private FightResult Fightresult;
+    private PossibleFightDialogueStarter DialogueFightStarter;
 
-    //For Debugging (will be removed later and given to this script by the FightDialogueStarter)
-    public int NPCDamage;
+    public float TimeBetweenAttacks = 1.5f;
 
-    public void StartFightDialogue(Queue<NodeDataHolder> _AllFightNodes)
+    public void StartFightDialogue(Queue<NodeDataHolder> _AllFightNodes, PossibleFightDialogueStarter _Dialoguestarter)
     {
         AllFightNodes = _AllFightNodes;
+        DialogueFightStarter = _Dialoguestarter;
 
         //Display the Fight-Canvas
         VisualManager.LoadFightVisuals();
@@ -26,13 +26,16 @@ public class FightManager : MonoBehaviour
         //Activate the fighting system
         FightNextRound();
 
-        //Set the NPCHealth
-        VisualManager.MaximizeNPCHealth(NPCHealth);
+        //Set the NPCHealth and Playerhealth
+        VisualManager.MaximizeNPCHealth(DialogueFightStarter.NPCHealth);
+        VisualManager.MaximizePlayerHealth(Playerhealth.MaxPlayerHealth);
     }
 
     public void FightNextRound()
     {
-        Playerhealth.TakeDamage(NPCDamage);
+        //Let the Player take damage and update their Healthbar
+        Playerhealth.TakeDamage(System.Convert.ToInt32(DialogueFightStarter.AggressionDamage));
+        VisualManager.SetPlayerHealth(Playerhealth.CurrentPlayerhealth);
 
         //Check if Queue is empty,
         if (AllFightNodes.Count == 0)
@@ -42,24 +45,25 @@ public class FightManager : MonoBehaviour
         }
 
         CurrentFightNode = AllFightNodes.Dequeue();
-        VisualManager.DisplayNextFightRound(CurrentFightNode.DialogueText); //Just try to debug.log the deque 
+        VisualManager.DisplayNextFightRound(CurrentFightNode.DialogueText); 
     }
 
-    public void PlayerDealsDamage(float _Aggresion, float _Threat, float _Defense)
+    public IEnumerator PlayerDealsDamage(float _Aggresion, float _Threat, float _Defense)
     {
         //Do some math calculation in which you use all the players answer values and the values the enemy NPC has.
         //The NPC values can be given by the FightDialogueStarter to the Dialoguemanager and then to the Fightmanager
         //For now, only aggression will be used and no NPC values will be used to make testing easier (and because I´m lazy)
-        NPCHealth -= _Aggresion;
-        VisualManager.SetNPCHealthGFX(NPCHealth);
+        DialogueFightStarter.NPCHealth -= _Aggresion;
+        VisualManager.SetNPCHealthGFX(DialogueFightStarter.NPCHealth);
 
+        yield return new WaitForSeconds(TimeBetweenAttacks);
         FightNextRound();
     }
 
     private void EndFight()
     {
         //Check if Player, or NPC has more CurrentHealth. Then Pass this information to the VisualManager to display it.
-        if (Playerhealth.CurrentPlayerhealth > NPCHealth)
+        if (Playerhealth.CurrentPlayerhealth > DialogueFightStarter.NPCHealth)
             Fightresult = FightResult.Victory;
         else
             Fightresult = FightResult.Defeat;
@@ -67,6 +71,7 @@ public class FightManager : MonoBehaviour
         StartCoroutine(DisplayFightResult());
 
         //Enable ingame mechanics, like moving
+        DialogueFightStarter.DialogueIsActive = false;
 
         //Deactivate the FightScreen after a while
         VisualManager.UnlaodFightVisuals();

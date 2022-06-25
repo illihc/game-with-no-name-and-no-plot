@@ -21,6 +21,6 @@ public class PlayerFightAnswer : MonoBehaviour
 
     public void UseAnswer()
     {
-        Fightmanager.PlayerDealsDamage(Aggresion, Threat, Defense);
+        StartCoroutine(Fightmanager.PlayerDealsDamage(Aggresion, Threat, Defense));
     }
 }

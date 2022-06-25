@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
     private NodeDataHolder CurrentNode;
     List<string> PlayerAnswers = new List<string>();
     DialogueStarter CurrentDialogueStarter;
+    PossibleFightDialogueStarter CurrentFightDialogueStarter;
 
      //For Fighting
     [SerializeField] private FightManager Fightmanager;
@@ -31,6 +32,25 @@ public class DialogueManager : MonoBehaviour
         //Check if there are choices of other dialogues, which have to be payes attention to
             //Tell the Diloguecontainer about this
             //Let the visual manager change the graphics according to that
+    }
+
+    public void StartDialogue(DialogueContainer _DialogueData, VisualDialogueManager _VisualManager, PossibleFightDialogueStarter _CurrentDialogueStarter)
+    {
+        DialogueData = _DialogueData;
+        VisualManager = _VisualManager;
+        CurrentFightDialogueStarter = _CurrentDialogueStarter;
+
+        //Disable other game-functionality
+
+        //Let the visual manager load in the graphics
+        VisualManager.LoadDialogueVisuals();
+
+        //Load the fitting dialogue
+        LoadFirstDialogueStage();
+
+        //Check if there are choices of other dialogues, which have to be payes attention to
+        //Tell the Diloguecontainer about this
+        //Let the visual manager change the graphics according to that
     }
 
     private void LoadFirstDialogueStage()
@@ -66,7 +86,7 @@ public class DialogueManager : MonoBehaviour
         {
             FindAllFightNodes();
             Debug.Log("FindNodesCount is: " + AllFightNodes.Count);
-            Fightmanager.StartFightDialogue(AllFightNodes);
+            Fightmanager.StartFightDialogue(AllFightNodes, CurrentFightDialogueStarter);
             return;
 
             //With this action, the dialoguemanager is done and unable to do anything until the next dialogue has been triggered
@@ -128,8 +148,11 @@ public class DialogueManager : MonoBehaviour
         VisualManager.UnloadDialogueVisuals();
         Debug.Log("Ended dialogue");
 
-        //enable other game-functionality
-        CurrentDialogueStarter.DialogueIsActive = false;
+        //enable other game-functionality, depending on the kind of conversation
+        if (CurrentDialogueStarter != null)
+            CurrentDialogueStarter.DialogueIsActive = false;
+        else
+            CurrentFightDialogueStarter.DialogueIsActive = false;
     }
 
     private void LoadPlayerAnswers()

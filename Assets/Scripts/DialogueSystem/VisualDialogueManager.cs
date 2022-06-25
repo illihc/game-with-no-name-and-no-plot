@@ -16,6 +16,7 @@ public class VisualDialogueManager : MonoBehaviour
     public GameObject FightCanvas;
     public GameObject NPCFightNode;
     public Slider NPCHealthSlider;
+    public Slider PlayerHealthSlider;
     public void LoadDialogueVisuals()
         {
             DialogueCanvas.SetActive(true);
@@ -84,6 +85,16 @@ public class VisualDialogueManager : MonoBehaviour
         NPCHealthSlider.value = _CurrentHealth;
     }
 
+    public void MaximizePlayerHealth(float _MaxHealth)
+    {
+        PlayerHealthSlider.maxValue = _MaxHealth;
+        PlayerHealthSlider.value = _MaxHealth;
+    }
+
+    public void SetPlayerHealth(float _CurrentHealth)
+    {
+        PlayerHealthSlider.value = _CurrentHealth;
+    }
     public void UnlaodFightVisuals()
     {
         FightCanvas.SetActive(false);

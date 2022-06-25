@@ -11,12 +11,17 @@ public class DialogueStarter : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(Input.GetKeyDown(KeyCode.I) && !DialogueIsActive)
+        CheckForDialogueStart();
+    }  
+
+    protected virtual void CheckForDialogueStart()
+    {
+        if (Input.GetKeyDown(KeyCode.I) && !DialogueIsActive)
         {
             DialogueManager.StartDialogue(Dialogue, VisualManager, this);
             DialogueIsActive = true;
 
             Debug.Log("Started Dialogue");
         }
-    }  
+    }
 }
