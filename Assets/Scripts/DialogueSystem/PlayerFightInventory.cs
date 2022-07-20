@@ -13,6 +13,8 @@ public struct PlayerFightSentence
 {
     public float DefensiveValue, AggressiveValue, ThreateningValue;
     public string Sentence;
+
+    //Just to sort the Sentences in the VisualInventory
     public FightSentenceType SentenceType;
 }
 
@@ -20,6 +22,8 @@ public struct PlayerDetectiveSentence
 {
     public float ThreateningValue, UnderstandingValue, NeutralValue, ConfrontingValue;
     public string Sentence;
+
+    //Just to sort the Sentences in the VisualInventory
     public DetectiveSentenceType SentenceType;
 }
 

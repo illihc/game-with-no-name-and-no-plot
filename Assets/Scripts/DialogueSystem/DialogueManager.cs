@@ -9,11 +9,12 @@ public class DialogueManager : MonoBehaviour
     private NodeDataHolder CurrentNode;
     List<string> PlayerAnswers = new List<string>();
     DialogueStarter CurrentDialogueStarter;
-    PossibleFightDialogueStarter CurrentFightDialogueStarter;
+    PossibleActionDialogueStarter CurrentActionDialogueStarter;
 
-     //For Fighting
+     //For Action
     [SerializeField] private FightManager Fightmanager;
-    private Queue<NodeDataHolder> AllFightNodes = new Queue<NodeDataHolder>();
+    [SerializeField] private DetectiveManager Detectivemanager;
+    private Queue<NodeDataHolder> AllActionNodes = new Queue<NodeDataHolder>();
 
     public void StartDialogue(DialogueContainer _DialogueData, VisualDialogueManager _VisualManager, DialogueStarter _CurrentDialogueStarter) 
     {
@@ -34,11 +35,11 @@ public class DialogueManager : MonoBehaviour
             //Let the visual manager change the graphics according to that
     }
 
-    public void StartDialogue(DialogueContainer _DialogueData, VisualDialogueManager _VisualManager, PossibleFightDialogueStarter _CurrentDialogueStarter)
+    public void StartDialogue(DialogueContainer _DialogueData, VisualDialogueManager _VisualManager, PossibleActionDialogueStarter _CurrentDialogueStarter)
     {
         DialogueData = _DialogueData;
         VisualManager = _VisualManager;
-        CurrentFightDialogueStarter = _CurrentDialogueStarter;
+        CurrentActionDialogueStarter = _CurrentDialogueStarter;
 
         //Disable other game-functionality
 
@@ -84,12 +85,17 @@ public class DialogueManager : MonoBehaviour
 
         if(CurrentNode.IsFightDialogue)
         {
-            FindAllFightNodes();
-            Debug.Log("FindNodesCount is: " + AllFightNodes.Count);
-            Fightmanager.StartFightDialogue(AllFightNodes, CurrentFightDialogueStarter);
+            FindAllActionNodes();
+            Fightmanager.StartFightDialogue(AllActionNodes, CurrentActionDialogueStarter);
             return;
 
             //With this action, the dialoguemanager is done and unable to do anything until the next dialogue has been triggered
+        }
+        else if(CurrentNode.IsDetectiveDialogue)
+        {
+            FindAllActionNodes();
+            Detectivemanager.StartDetectiveDialogue(AllActionNodes, CurrentActionDialogueStarter);
+            return;
         }
         
         VisualManager.DisplayNode(CurrentNode);
@@ -152,7 +158,7 @@ public class DialogueManager : MonoBehaviour
         if (CurrentDialogueStarter != null)
             CurrentDialogueStarter.DialogueIsActive = false;
         else
-            CurrentFightDialogueStarter.DialogueIsActive = false;
+            CurrentActionDialogueStarter.DialogueIsActive = false;
     }
 
     private void LoadPlayerAnswers()
@@ -171,13 +177,13 @@ public class DialogueManager : MonoBehaviour
         VisualManager.DisplayPlayerAnswers(PlayerAnswers);
     }
 
-    private void FindAllFightNodes()
+    private void FindAllActionNodes()
     {
         //Clear all previous fight nodes
-        AllFightNodes.Clear();
+        AllActionNodes.Clear();
 
         //Add the current Node (which is a Fight Node, because this code has been triggered
-        AllFightNodes.Enqueue(CurrentNode);
+        AllActionNodes.Enqueue(CurrentNode);
 
         //Iterate through all next nodes to
         while(true)
@@ -189,7 +195,7 @@ public class DialogueManager : MonoBehaviour
             if (CurrentNode == null)
                 return;
             else
-                AllFightNodes.Enqueue(CurrentNode);
+                AllActionNodes.Enqueue(CurrentNode);
         }
     }
 }

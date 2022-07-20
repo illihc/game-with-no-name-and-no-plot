@@ -14,20 +14,9 @@ public class NodeDataHolder
     public bool IsEntryPoint;
 
     //For the gameplay
-    public string[] PlayerAnswers;
     public bool IsFightDialogue;
-    public SentenceType[] Sentencetypes;//Can be null (None), if the DialogueType is a Talk-Dialogue
+    public bool IsDetectiveDialogue;
     public string DialogueText;
     public int PortNumber;
 }
 
-
-public enum SentenceType
-{
-    None = 0,
-    Threatening = 1,
-    Understanding = 2,
-    Neutral = 3,
-    Defensiv = 4,
-    Confronting = 5
-}

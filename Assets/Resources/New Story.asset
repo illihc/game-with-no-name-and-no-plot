@@ -16,58 +16,65 @@ MonoBehaviour:
   - Guid: 3efa84a9-73c4-4c61-b319-ea32cc88e1f3
     GraphPosition: {x: 100, y: 200}
     IsEntryPoint: 1
-    PlayerAnswers: []
     IsFightDialogue: 0
-    Sentencetypes: 00000000
+    IsDetectiveDialogue: 0
     DialogueText: 
     PortNumber: 0
   - Guid: f451f3d7-557e-4aff-a64d-d8618621736e
     GraphPosition: {x: 274.4, y: 120}
     IsEntryPoint: 0
-    PlayerAnswers: []
     IsFightDialogue: 0
-    Sentencetypes: 000000000000000001000000
+    IsDetectiveDialogue: 0
     DialogueText: Hallo
     PortNumber: 1
-  - Guid: ff5fd4a5-409f-4375-a172-44e0e37f7c49
-    GraphPosition: {x: 821.6, y: 120}
-    IsEntryPoint: 0
-    PlayerAnswers: []
-    IsFightDialogue: 0
-    Sentencetypes: 
-    DialogueText: Gut, dir?
-    PortNumber: 2
-  - Guid: 2d357434-a884-4530-b41e-74886680aa6f
-    GraphPosition: {x: 733.6, y: 243.99998}
-    IsEntryPoint: 0
-    PlayerAnswers: []
-    IsFightDialogue: 0
-    Sentencetypes: 
-    DialogueText: "Na dann: Tsch\xFCss!"
-    PortNumber: 3
   - Guid: f187623f-2272-423b-8622-553dc63d23f0
     GraphPosition: {x: 821.6, y: -96.8}
     IsEntryPoint: 0
-    PlayerAnswers: []
     IsFightDialogue: 1
-    Sentencetypes: 
+    IsDetectiveDialogue: 0
     DialogueText: "Dann lass uns k\xE4mpfen!"
-    PortNumber: 1
-  - Guid: ddfa7b22-b181-400c-8ae1-108fd7a3f5f6
-    GraphPosition: {x: 1428, y: -96.8}
-    IsEntryPoint: 0
-    PlayerAnswers: []
-    IsFightDialogue: 1
-    Sentencetypes: 
-    DialogueText: Ha, ich bin besser
     PortNumber: 1
   - Guid: a0a6d396-4ce2-4bfb-90b5-bcc1035d4a84
     GraphPosition: {x: 2005.6, y: -88}
     IsEntryPoint: 0
-    PlayerAnswers: []
     IsFightDialogue: 1
-    Sentencetypes: 
+    IsDetectiveDialogue: 0
     DialogueText: Ok, du hast gewonnen
+    PortNumber: 1
+  - Guid: ff5fd4a5-409f-4375-a172-44e0e37f7c49
+    GraphPosition: {x: 945.6, y: 120}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 1
+    DialogueText: Gut, dir?
+    PortNumber: 2
+  - Guid: 2d357434-a884-4530-b41e-74886680aa6f
+    GraphPosition: {x: 929.6, y: 329.6}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: "Na dann: Tsch\xFCss!"
+    PortNumber: 3
+  - Guid: ddfa7b22-b181-400c-8ae1-108fd7a3f5f6
+    GraphPosition: {x: 1676, y: -96.8}
+    IsEntryPoint: 0
+    IsFightDialogue: 1
+    IsDetectiveDialogue: 0
+    DialogueText: Ha, ich bin besser
+    PortNumber: 1
+  - Guid: 43b37bc7-84ad-4917-bf48-267fb9bed660
+    GraphPosition: {x: 1638.4, y: 120}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 1
+    DialogueText: Mein Geheimnis findst du nie heraus!
+    PortNumber: 1
+  - Guid: 093e2801-86b1-43a1-9490-0b735aa65edd
+    GraphPosition: {x: 2633.6, y: 120}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 1
+    DialogueText: Niemals!
     PortNumber: 1
   EdgesData:
   - TargetNodeGuid: f451f3d7-557e-4aff-a64d-d8618621736e
@@ -85,6 +92,12 @@ MonoBehaviour:
   - TargetNodeGuid: ddfa7b22-b181-400c-8ae1-108fd7a3f5f6
     BaseNodeGuid: f187623f-2272-423b-8622-553dc63d23f0
     PortName: DamagePlayer
+  - TargetNodeGuid: 43b37bc7-84ad-4917-bf48-267fb9bed660
+    BaseNodeGuid: ff5fd4a5-409f-4375-a172-44e0e37f7c49
+    PortName: LooseAnxiety
   - TargetNodeGuid: a0a6d396-4ce2-4bfb-90b5-bcc1035d4a84
     BaseNodeGuid: ddfa7b22-b181-400c-8ae1-108fd7a3f5f6
     PortName: Damage Player
+  - TargetNodeGuid: 093e2801-86b1-43a1-9490-0b735aa65edd
+    BaseNodeGuid: 43b37bc7-84ad-4917-bf48-267fb9bed660
+    PortName: Option 1

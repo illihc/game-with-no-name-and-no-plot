@@ -53,7 +53,7 @@ public class GraphSave
         DialogueSaveContainer.NodesData.Clear();
 
         //Saving the Guid, the text, and the position of all nodes, except the startnode in de DialoguesaveContainer in the NodesData-List
-        foreach (var _DialogueNode in Nodes)
+        foreach (DialogueNode _DialogueNode in Nodes)
         {
             DialogueSaveContainer.NodesData.Add(new NodeDataHolder
             {
@@ -63,8 +63,8 @@ public class GraphSave
                 IsEntryPoint = _DialogueNode.IsEntryPoint,
                 PortNumber = _DialogueNode.InputPortNumber,
                 IsFightDialogue = _DialogueNode.IsFightNode,
-                Sentencetypes = _DialogueNode.Sentencetypes,
-            });
+                IsDetectiveDialogue = _DialogueNode.IsDetectiveNode
+            }) ;
         }
     }
 
@@ -157,9 +157,9 @@ public class GraphSave
 
             //Create the node
             if (nodedata.IsEntryPoint)
-                _node = GraphView.CreateDialogueNode(nodedata.DialogueText, false, true);
+                _node = GraphView.CreateDialogueNode(nodedata.DialogueText, false, false, true);
             else
-                _node = GraphView.CreateDialogueNode(nodedata.DialogueText, nodedata.IsFightDialogue);
+                _node = GraphView.CreateDialogueNode(nodedata.DialogueText, nodedata.IsFightDialogue, nodedata.IsDetectiveDialogue);
 
 
             _node.ObjectID = nodedata.Guid;
@@ -176,8 +176,8 @@ public class GraphSave
             //Setting if the node has been a FightNode
             _node.IsFightNode = nodedata.IsFightDialogue;
 
-            //Setting the Sentencetype of the node
-            _node.Sentencetypes = nodedata.Sentencetypes;
+            //Setting if the node has been a DetectiveNode
+            _node.IsDetectiveNode = nodedata.IsDetectiveDialogue;
         }
 
     }

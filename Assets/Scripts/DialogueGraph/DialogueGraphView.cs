@@ -17,6 +17,7 @@ public class DialogueGraphView : GraphView
         this.AddManipulator(new ContentDragger());
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
+        this.AddManipulator(new ContentZoomer());
 
         //Adding a cool Baclground and settings it´s layer to the lowest 
         GridBackground Background = new GridBackground();
@@ -29,7 +30,7 @@ public class DialogueGraphView : GraphView
 
     public void CreateNode(string _nodename)
     {
-        AddElement(CreateDialogueNode(_nodename, false));
+        AddElement(CreateDialogueNode(_nodename, false, false));
     }
 
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
@@ -47,7 +48,7 @@ public class DialogueGraphView : GraphView
 
     private DialogueNode GenerateEntryPoint()
     {
-        return CreateDialogueNode("start", false, true);
+        return CreateDialogueNode("start", false, false, true);
     }
 
     //Generating a port (a point, where one node can be connectet to another node)
@@ -56,7 +57,7 @@ public class DialogueGraphView : GraphView
         return node.InstantiatePort(Orientation.Horizontal, PortDirection, Port.Capacity.Single, typeof(bool));
     }
 
-    public DialogueNode CreateDialogueNode(string _NodeName, bool _IsFightNode, bool IsEntryNode = false)
+    public DialogueNode CreateDialogueNode(string _NodeName, bool _IsFightNode, bool _IsDetectiveNode, bool IsEntryNode = false)
     {
         DialogueNode _Dialoguenode = new DialogueNode
         {
@@ -64,6 +65,7 @@ public class DialogueGraphView : GraphView
             DialogueText = _NodeName,
             ObjectID = System.Guid.NewGuid().ToString(),
             IsFightNode = _IsFightNode,
+            IsDetectiveNode = _IsDetectiveNode,
         };
 
         if(! IsEntryNode)
@@ -104,6 +106,15 @@ public class DialogueGraphView : GraphView
                 _Dialoguenode.IsFightNode = _IsFight.newValue;
             });
             _Dialoguenode.titleContainer.Add(IsFightNodeToggle);
+
+            //Create a button to mark the node as Detective-Node
+            Toggle IsDetectiveNodeToggle = new Toggle("IsDetectiveNode");
+            IsDetectiveNodeToggle.SetValueWithoutNotify(_Dialoguenode.IsDetectiveNode);
+            IsDetectiveNodeToggle.RegisterValueChangedCallback(_IsDetective =>
+            {
+                _Dialoguenode.IsDetectiveNode = _IsDetective.newValue;
+            });
+            _Dialoguenode.titleContainer.Add(IsDetectiveNodeToggle);
         }
         else if(IsEntryNode)
         {

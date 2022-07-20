@@ -8,14 +8,13 @@ public class FightManager : MonoBehaviour
     public VisualDialogueManager VisualManager;
     Queue<NodeDataHolder> AllFightNodes;
     public PlayerHealth Playerhealth;
-    public GameObject FightResultCanvas;
     private NodeDataHolder CurrentFightNode;
     private FightResult Fightresult;
-    private PossibleFightDialogueStarter DialogueFightStarter;
+    private PossibleActionDialogueStarter DialogueFightStarter;
 
     public float TimeBetweenAttacks = 1.5f;
 
-    public void StartFightDialogue(Queue<NodeDataHolder> _AllFightNodes, PossibleFightDialogueStarter _Dialoguestarter)
+    public void StartFightDialogue(Queue<NodeDataHolder> _AllFightNodes, PossibleActionDialogueStarter _Dialoguestarter)
     {
         AllFightNodes = _AllFightNodes;
         DialogueFightStarter = _Dialoguestarter;
@@ -45,7 +44,10 @@ public class FightManager : MonoBehaviour
         }
 
         CurrentFightNode = AllFightNodes.Dequeue();
-        VisualManager.DisplayNextFightRound(CurrentFightNode.DialogueText); 
+        VisualManager.DisplayNextFightRound(CurrentFightNode.DialogueText);
+
+        //Allow the player to answer again
+        VisualManager.UsePlayerAnswerCoverUp(Activating: false);
     }
 
     public IEnumerator PlayerDealsDamage(float _Aggresion, float _Threat, float _Defense)
@@ -56,6 +58,8 @@ public class FightManager : MonoBehaviour
         DialogueFightStarter.NPCHealth -= _Aggresion;
         VisualManager.SetNPCHealthGFX(DialogueFightStarter.NPCHealth);
 
+        //deactivate the option to answer to prevent spamming the button to win
+        VisualManager.UsePlayerAnswerCoverUp(Activating: true);
         yield return new WaitForSeconds(TimeBetweenAttacks);
         FightNextRound();
     }
@@ -68,21 +72,14 @@ public class FightManager : MonoBehaviour
         else
             Fightresult = FightResult.Defeat;
 
-        StartCoroutine(DisplayFightResult());
+        StartCoroutine(VisualManager.DisplayConflictResult(Fightresult.ToString()));
 
         //Enable ingame mechanics, like moving
         DialogueFightStarter.DialogueIsActive = false;
 
-        //Deactivate the FightScreen after a while
+        //Deactivate the FightScreen
+        VisualManager.UsePlayerAnswerCoverUp(Activating: false);
         VisualManager.UnlaodFightVisuals();
-    }
-
-    private IEnumerator DisplayFightResult()
-    {
-        FightResultCanvas.SetActive(true);
-        FightResultCanvas.GetComponentInChildren<TMP_Text>().text = Fightresult.ToString();
-        yield return new WaitForSeconds(2f);
-        FightResultCanvas.SetActive(false);
     }
 }
 

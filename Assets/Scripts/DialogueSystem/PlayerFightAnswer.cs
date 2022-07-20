@@ -19,7 +19,7 @@ public class PlayerFightAnswer : MonoBehaviour
         Fightmanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<FightManager>();
     }
 
-    public void UseAnswer()
+    public void Answer()
     {
         StartCoroutine(Fightmanager.PlayerDealsDamage(Aggresion, Threat, Defense));
     }

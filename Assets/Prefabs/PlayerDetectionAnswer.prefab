@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6907822902296129492}
   - component: {fileID: 6907822902296129499}
   - component: {fileID: 6907822902296129498}
-  - component: {fileID: -2928758025234748516}
+  - component: {fileID: 1701869338799395131}
   m_Layer: 5
-  m_Name: PlayerFightAnswer
+  m_Name: PlayerDetectionAnswer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,8 +122,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -2928758025234748516}
-        m_TargetAssemblyTypeName: PlayerFightAnswer, Assembly-CSharp
+      - m_Target: {fileID: 1701869338799395131}
+        m_TargetAssemblyTypeName: PlayerDetectionAnswer, Assembly-CSharp
         m_MethodName: Answer
         m_Mode: 1
         m_Arguments:
@@ -134,7 +134,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-2928758025234748516
+--- !u!114 &1701869338799395131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,12 +143,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6907822902296129496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0c45db52bada84e83af99cfaccce7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 56c95ce5b7151ff4ca6a18bd1352025f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Aggresion: 0
-  Threat: 0
-  Defense: 0
+  Threat: 2
+  Neutral: 0
+  Understanding: 0
+  Confront: 0
 --- !u!1 &6907822902481995570
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: AggressiveSentence
+  m_text: Threat Sentence
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -241,7 +242,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.75
+  m_fontSize: 27
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
