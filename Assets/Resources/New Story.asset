@@ -46,7 +46,7 @@ MonoBehaviour:
     IsEntryPoint: 0
     IsFightDialogue: 0
     IsDetectiveDialogue: 1
-    DialogueText: Gut, dir?
+    DialogueText: "Ich wei\xDF nichts!"
     PortNumber: 2
   - Guid: 2d357434-a884-4530-b41e-74886680aa6f
     GraphPosition: {x: 929.6, y: 329.6}
@@ -67,7 +67,7 @@ MonoBehaviour:
     IsEntryPoint: 0
     IsFightDialogue: 0
     IsDetectiveDialogue: 1
-    DialogueText: Mein Geheimnis findst du nie heraus!
+    DialogueText: Nein, das kann ich nicht sagen!
     PortNumber: 1
   - Guid: 093e2801-86b1-43a1-9490-0b735aa65edd
     GraphPosition: {x: 2633.6, y: 120}

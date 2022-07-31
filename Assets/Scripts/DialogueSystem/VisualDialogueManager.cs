@@ -29,10 +29,12 @@ public class VisualDialogueManager : MonoBehaviour
     public Slider NPCAnxietySlider;
     public RectTransform RightAnxietySpotUI;
     public GameObject NPCDetectiveNode;
-    public float MaxAnxietyMeterMarkerXPos;
+    public float MaxFillXPostion;
 
     //Generell
     public GameObject ConflictResultCanvas;
+
+    public PlayerSentenceInventory PlayersentenceInventory;
 
     #region NormalDialogue
     public void LoadDialogueVisuals()
@@ -44,7 +46,7 @@ public class VisualDialogueManager : MonoBehaviour
         {
             CurrentDisplayedNode.SetActive(true);
 
-            CurrentDisplayedNode.GetComponentInChildren<Text>().text = node.DialogueText;
+            CurrentDisplayedNode.GetComponentInChildren<TextMeshProUGUI>().text = node.DialogueText;
         }
 
     public void UnloadDialogueVisuals()
@@ -89,6 +91,18 @@ public class VisualDialogueManager : MonoBehaviour
         DialogueCanvas.SetActive(false);
         FightCanvas.SetActive(true);
     }
+
+    public void DisplayFightSentences()
+    {
+        PlayersentenceInventory.InventoryParentPanel.parent.gameObject.SetActive(true);
+        PlayersentenceInventory.DisplayFightSentences();
+    }
+
+    public void UnloadFightSentences()
+    {
+        PlayersentenceInventory.InventoryParentPanel.parent.gameObject.SetActive(false);
+    }
+
 
     public void DisplayNextFightRound(string _NPCFightSentence)
     {
@@ -141,26 +155,7 @@ public class VisualDialogueManager : MonoBehaviour
     //Setting the position of the marker, which indicates the right amount of anxiety
     public void SetAnxietyCorrectMarker(float _RightFillAmount, float _MaxFillAmount)
     {
-        RightAnxietySpotUI.position = new Vector3((_RightFillAmount * MaxAnxietyMeterMarkerXPos) / _MaxFillAmount, RightAnxietySpotUI.position.y, RightAnxietySpotUI.position.z);
-
- /*
-            Lenght of Healtbar Graphic: 100u
-            NeededFillAmount: 50
-            MaxFillAmount = 110
-
-            MaxFillPosition =^ 100u
-            MinFillPosition =^ 0u
-
-            Verkürzter Dreisatz:
-
-            MaxFillPosition = 100u =^ MaxFillAmount = 110
-            NeededPositionOfα =^ NeededFillAmount = 50
-            
-
-            NeededPositionOfα = MinFillPosition + (NeededFillAmount * MaxFillPosition) / MaxFillAmount
-            NeededPositionOfα = 0u + (50 * 100u) / 110
-            
-*/
+        RightAnxietySpotUI.localPosition += Vector3.right * ((_RightFillAmount * MaxFillXPostion) / _MaxFillAmount);
     }
 
     public void DisplayNextDetectiveRound(string _NPCFightSentence)

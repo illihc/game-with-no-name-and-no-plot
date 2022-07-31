@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381ca2139031bce42b6c3772a2475a49, type: 3}
+  m_Name: Felis Geschichte
+  m_EditorClassIdentifier: 
+  NodesData:
+  - Guid: 8b646792-2210-4752-9a92-605b156bc449
+    GraphPosition: {x: 0, y: 0}
+    IsEntryPoint: 1
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: start
+    PortNumber: 0
+  - Guid: d2179ca4-db24-4f7e-8f91-620d12861a9b
+    GraphPosition: {x: 1444.8, y: -20.8}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: "Ich...Ich wei\xDF es nicht, ich kann mich nicht erinnern."
+    PortNumber: 1
+  - Guid: 363b5ddc-6bb4-404a-ae80-02703176eaff
+    GraphPosition: {x: 272, y: 0}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: "Ich habe keine Ahnung was diesen Ort so verw\xFCstet hat. Es war
+      schon so seit ich denken kann."
+    PortNumber: 1
+  - Guid: 02cbdbc9-3907-4af7-a5fd-454af51a1a0d
+    GraphPosition: {x: 2452, y: 86.399994}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: Ich bin Tod lol
+    PortNumber: 1
+  - Guid: 0c3b1c9d-abdc-4ee7-b9bd-5cb8668ce5a5
+    GraphPosition: {x: 1549.6, y: 121.59999}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: Mein Freund...Hilfe...Ahhhhhhhhhhhh
+    PortNumber: 2
+  EdgesData:
+  - TargetNodeGuid: 363b5ddc-6bb4-404a-ae80-02703176eaff
+    BaseNodeGuid: 8b646792-2210-4752-9a92-605b156bc449
+    PortName: Start
+  - TargetNodeGuid: d2179ca4-db24-4f7e-8f91-620d12861a9b
+    BaseNodeGuid: 363b5ddc-6bb4-404a-ae80-02703176eaff
+    PortName: Wie sind Sie denn hier her gekommen?
+  - TargetNodeGuid: 0c3b1c9d-abdc-4ee7-b9bd-5cb8668ce5a5
+    BaseNodeGuid: 363b5ddc-6bb4-404a-ae80-02703176eaff
+    PortName: Warum sind Sie denn hier?
+  - TargetNodeGuid: 02cbdbc9-3907-4af7-a5fd-454af51a1a0d
+    BaseNodeGuid: 0c3b1c9d-abdc-4ee7-b9bd-5cb8668ce5a5
+    PortName: Er ist in Flammen aufgegangen!

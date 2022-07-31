@@ -9,6 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7504be325d9373449b3a62afbdbed3c3, type: 3}
-  m_Name: PlayerSentencesInventory
+  m_Script: {fileID: 11500000, guid: 6a248c5d949eb974dbcdea9771a7e3a6, type: 3}
+  m_Name: AggressiveCard (2)
   m_EditorClassIdentifier: 
+  Sentence: "I\xB4m agression Damage 2"
+  Defensive: 0
+  Aggressive: 20
+  Threatening: 0
+  SentenceType: 1

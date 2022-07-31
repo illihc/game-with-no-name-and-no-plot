@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381ca2139031bce42b6c3772a2475a49, type: 3}
+  m_Name: Lu's Story
+  m_EditorClassIdentifier: 
+  NodesData:
+  - Guid: 68160bf8-9a44-4d07-9468-14c06d47a83a
+    GraphPosition: {x: -229.6, y: 0}
+    IsEntryPoint: 1
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: start
+    PortNumber: 0
+  - Guid: c388022b-c08b-4853-afce-5d88eb1aead0
+    GraphPosition: {x: 644.8, y: -75.2}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: Gay !!!
+    PortNumber: 1
+  - Guid: e7aca548-bcfb-4da1-a4ec-c4e5f54b66ec
+    GraphPosition: {x: 653.6, y: 139.2}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: "B\xF6ser Johann."
+    PortNumber: 2
+  - Guid: 2ccccd95-d024-460c-a13f-3a91455a70b9
+    GraphPosition: {x: -121.6, y: -37.6}
+    IsEntryPoint: 0
+    IsFightDialogue: 0
+    IsDetectiveDialogue: 0
+    DialogueText: Ich bin Lu und ich bin gay !
+    PortNumber: 1
+  EdgesData:
+  - TargetNodeGuid: 2ccccd95-d024-460c-a13f-3a91455a70b9
+    BaseNodeGuid: 68160bf8-9a44-4d07-9468-14c06d47a83a
+    PortName: Start
+  - TargetNodeGuid: c388022b-c08b-4853-afce-5d88eb1aead0
+    BaseNodeGuid: 2ccccd95-d024-460c-a13f-3a91455a70b9
+    PortName: Cool, ich bin auch gay !
+  - TargetNodeGuid: e7aca548-bcfb-4da1-a4ec-c4e5f54b66ec
+    BaseNodeGuid: 2ccccd95-d024-460c-a13f-3a91455a70b9
+    PortName: Ich bin auch gay, aber ich gestehe es mir nicht ein.

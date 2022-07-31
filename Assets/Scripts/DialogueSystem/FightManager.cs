@@ -21,6 +21,7 @@ public class FightManager : MonoBehaviour
 
         //Display the Fight-Canvas
         VisualManager.LoadFightVisuals();
+        VisualManager.DisplayFightSentences();
 
         //Activate the fighting system
         FightNextRound();
@@ -80,6 +81,7 @@ public class FightManager : MonoBehaviour
         //Deactivate the FightScreen
         VisualManager.UsePlayerAnswerCoverUp(Activating: false);
         VisualManager.UnlaodFightVisuals();
+        VisualManager.UnloadFightSentences();
     }
 }
 
