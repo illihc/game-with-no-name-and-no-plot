@@ -23,14 +23,9 @@ public class PossibleActionDialogueStarter : DialogueStarter
     public float AnxietyCurrentValue;
     public float AnxietyCorrectValue;
 
-    protected override void CheckForDialogueStart()
+    public override void StartAction()
     {
-        if (Input.GetKeyDown(KeyCode.I) && !DialogueIsActive)
-        {
-            DialogueManager.StartDialogue(Dialogue, VisualManager, this);
-            DialogueIsActive = true;
-
-            Debug.Log("Started Fight Dialogue");
-        }
+        DialogueManager.StartDialogue(Dialogue, VisualManager, this);
+        DialogueIsActive = true;
     }
 }

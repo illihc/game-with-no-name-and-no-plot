@@ -9,6 +9,7 @@ public class DetectiveManager : MonoBehaviour
     private PossibleActionDialogueStarter DialogueStarter;
     private NodeDataHolder CurrentNode;
     public float TimeBetweenQuestions = 0.5f;
+    [SerializeField] private PlayerInput Playerinput;
 
     public void StartDetectiveDialogue(Queue<NodeDataHolder> _AllDetectiveNodes, PossibleActionDialogueStarter _Dialoguestarter)
     {
@@ -93,5 +94,8 @@ public class DetectiveManager : MonoBehaviour
         //Deactivate the DetectiveScreen
         VisualManager.UsePlayerAnswerCoverUp(Activating: false);
         VisualManager.UnloadDetectiveVisuals();
+
+        //Enable in-game mechanics
+        Playerinput.CanMove = true;
     }
 }

@@ -8,16 +8,17 @@ public class PlayerInput : MonoBehaviour
     public float horizontal, vertical;
     public bool CanMove = true;
 
-    void Update()
+    private void Update()
     {
         if (!CanMove)
         {
             horizontal = 0;
             vertical = 0;
-            return;
         }
-
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        else
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+        }
     }
 }

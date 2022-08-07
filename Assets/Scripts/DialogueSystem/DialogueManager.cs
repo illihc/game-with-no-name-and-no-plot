@@ -7,11 +7,12 @@ public class DialogueManager : MonoBehaviour
     private DialogueContainer DialogueData;
     private VisualDialogueManager VisualManager;
     private NodeDataHolder CurrentNode;
-    List<string> PlayerAnswers = new List<string>();
+    private List<string> PlayerAnswers = new List<string>();
     DialogueStarter CurrentDialogueStarter;
     PossibleActionDialogueStarter CurrentActionDialogueStarter;
+    [SerializeField] private PlayerInput Playerinput;
 
-     //For Action
+    //For Action
     [SerializeField] private FightManager Fightmanager;
     [SerializeField] private DetectiveManager Detectivemanager;
     private Queue<NodeDataHolder> AllActionNodes = new Queue<NodeDataHolder>();
@@ -154,11 +155,13 @@ public class DialogueManager : MonoBehaviour
         VisualManager.UnloadDialogueVisuals();
         Debug.Log("Ended dialogue");
 
-        //enable other game-functionality, depending on the kind of conversation
+        //enable other game-functionality
         if (CurrentDialogueStarter != null)
             CurrentDialogueStarter.DialogueIsActive = false;
         else
             CurrentActionDialogueStarter.DialogueIsActive = false;
+
+        Playerinput.CanMove = true;
     }
 
     private void LoadPlayerAnswers()

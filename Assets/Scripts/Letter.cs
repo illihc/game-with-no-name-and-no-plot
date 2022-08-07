@@ -5,13 +5,15 @@ using TMPro;
 
 public class Letter : Interactable
 {
-    [TextArea(15, 20)]
-    public string[] Pages;
+    [SerializeField] private PlayerInput Playerinput;
+
 
     [SerializeField] private TextMeshProUGUI Text;
     private int PageCount;
     [SerializeField] private GameObject LetterPanel;
 
+    [TextArea(15, 20)]
+    public string[] Pages;
     public override void StartAction()
     {
         Debug.Log("Action startet");
@@ -50,5 +52,6 @@ public class Letter : Interactable
     public override void EndAction()
     {
         LetterPanel.SetActive(false);
+        Playerinput.CanMove = true;
     }
 }

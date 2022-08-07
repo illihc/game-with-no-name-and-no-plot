@@ -5,17 +5,22 @@ using UnityEngine;
 public class InteractionIcon : MonoBehaviour
 {
     private Interactable CurrentInteractable;
+    [SerializeField] private PlayerInput Playerinput;
 
     public void GetOriginObject(Interactable _CurrentInteractable)
     {
         CurrentInteractable = _CurrentInteractable;
-
-        Debug.Log("Testing: Origin Objekt of Current Interaction is: ");
-        Debug.Log(CurrentInteractable.gameObject.name);
     }
 
     public void PressInteraction()
     {
+        //Start the interaction
         CurrentInteractable.StartAction();
+
+        //Prevent the player from moving
+        Playerinput.CanMove = false;
+
+        //disable the Interactionicon
+        gameObject.SetActive(false);
     }
 }

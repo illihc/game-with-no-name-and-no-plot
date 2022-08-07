@@ -11,6 +11,7 @@ public class FightManager : MonoBehaviour
     private NodeDataHolder CurrentFightNode;
     private FightResult Fightresult;
     private PossibleActionDialogueStarter DialogueFightStarter;
+    [SerializeField] private PlayerInput Playerinput;
 
     public float TimeBetweenAttacks = 1.5f;
 
@@ -62,7 +63,12 @@ public class FightManager : MonoBehaviour
         //deactivate the option to answer to prevent spamming the button to win
         VisualManager.UsePlayerAnswerCoverUp(Activating: true);
         yield return new WaitForSeconds(TimeBetweenAttacks);
-        FightNextRound();
+
+        //if the NPC is defeated, end the fight
+        if(DialogueFightStarter.NPCHealth <= 0)
+            EndFight();
+        else
+            FightNextRound();
     }
 
     private void EndFight()
@@ -77,6 +83,7 @@ public class FightManager : MonoBehaviour
 
         //Enable ingame mechanics, like moving
         DialogueFightStarter.DialogueIsActive = false;
+        Playerinput.CanMove = true;
 
         //Deactivate the FightScreen
         VisualManager.UsePlayerAnswerCoverUp(Activating: false);

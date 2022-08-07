@@ -12,6 +12,8 @@ public class PlayerSentenceInventory : MonoBehaviour
 
     public void DisplayFightSentences()
     {
+        ClearOldSentences();
+
         //Loop through all Sentences, which should be displayed
         for(int i = 0; i < PlayerFightSentences.Count; i++)
         {
@@ -21,6 +23,14 @@ public class PlayerSentenceInventory : MonoBehaviour
                 PlayerFightSentences[i].Aggressive, PlayerFightSentences[i].Threatening, 
                 PlayerFightSentences[i].Defensive, 
                 PlayerFightSentences[i].Sentence);
+        }
+    }
+
+    private void ClearOldSentences()
+    {
+        foreach (Transform child in InventoryParentPanel)
+        {
+            Destroy(child.gameObject);
         }
     }
 }

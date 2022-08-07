@@ -201,7 +201,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25291397}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -351,12 +351,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionIconG: {fileID: 1078576955}
+  Playerinput: {fileID: 972091157}
+  Text: {fileID: 422518137}
+  LetterPanel: {fileID: 328305983}
   Pages:
   - Hier ist der Testtext.
   - Hier ist der Testtext 2
   - Hier ist der Testtext 3
-  Text: {fileID: 422518137}
-  LetterPanel: {fileID: 328305983}
 --- !u!61 &30047674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2392,7 +2393,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9522c8994de79841a7ae41337cbd3ae, type: 2}
   - {fileID: 11400000, guid: 440d85839423bfd4dadfd45d4693b061, type: 2}
   PlayerFightPrefab: {fileID: 6907822902296129496, guid: cd2e21402aa851146a91d4440fe821d9, type: 3}
-  InventoryParentPanel: {fileID: 149666305}
+  InventoryParentPanel: {fileID: 2036862365}
 --- !u!114 &972091155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2448,18 +2449,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.11993668, y: 0.21806672}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.64, y: 0.64}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.13925205, y: 0.2133947}
   m_EdgeRadius: 0
 --- !u!50 &972091159
 Rigidbody2D:
@@ -2522,7 +2523,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb7c436da49e5124287277379084e40a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2542,7 +2543,7 @@ Transform:
   m_GameObject: {fileID: 972091153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2.67, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -2876,6 +2877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca94ee260ab753499e99738abbf39bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Playerinput: {fileID: 972091157}
 --- !u!1 &1130451988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2909,6 +2911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VisualManager: {fileID: 142761315}
   TimeBetweenQuestions: 0.5
+  Playerinput: {fileID: 972091157}
 --- !u!114 &1130451990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2923,6 +2926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VisualManager: {fileID: 142761315}
   Playerhealth: {fileID: 972091155}
+  Playerinput: {fileID: 972091157}
   TimeBetweenAttacks: 1
 --- !u!114 &1130451991
 MonoBehaviour:
@@ -2936,6 +2940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b04597938bf1e48b7dd4dc6ed2a216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Playerinput: {fileID: 972091157}
   Fightmanager: {fileID: 1130451990}
   Detectivemanager: {fileID: 1130451989}
 --- !u!4 &1130451992
@@ -3074,15 +3079,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd832d63206f604da3b65948dc64621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionIconG: {fileID: 1078576955}
   Dialogue: {fileID: 11400000, guid: 9ba57107937455b42bfd4e8cda01f812, type: 2}
   VisualManager: {fileID: 142761315}
   DialogueManager: {fileID: 1130451991}
   DialogueIsActive: 0
   WasEarlierConvinced: 0
-  NPCHealth: 0
-  AggressionSensitivity: 0
+  NPCHealth: 10
+  AggressionSensitivity: 1
   ThreatSensitivity: 0
-  AggressionDamage: 0
+  AggressionDamage: 2
   ThreatDamage: 0
   ThreateningSensitivity: 1
   NeutralSensitivity: 0
@@ -3411,7 +3417,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1048452212}
   m_FillRect: {fileID: 1048452211}
   m_HandleRect: {fileID: 0}
@@ -3801,7 +3807,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 379828522}
   m_FillRect: {fileID: 379828520}
   m_HandleRect: {fileID: 0}
@@ -4287,7 +4293,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1708068039}
   m_HandleRect: {fileID: 0}
